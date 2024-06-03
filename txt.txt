@@ -1,0 +1,37 @@
+//Esercizio 1
+SELECT * FROM public.clienti
+where nome='Mario'
+
+//Esercizio 2
+SELECT nome , cognome FROM public.clienti
+where anno_nascita=1982
+
+//Esercizio 3
+Select numero_fattura from fatture
+where iva=20
+
+//Esercizio 4
+Select * from prodotto
+where extract(year from data_attivazione)= '2017'
+and (in_produzione=true or in_commercio=true )
+
+//Esercizio 5
+select * from fatture f
+join clienti c on f.id_cliente = c.numero_cliente
+where importo <1000
+
+//Esercizio 6
+select numero_fattura, importo, iva, data_fattura, fr.regione_residenza from fatture f
+full outer join fornitori fr on f.numero_fornitore = fr.numero_fornitore
+
+//Esercizio 7
+select extract(year from data_fattura) as anno, count(*) as numero_fatture
+from fatture
+where iva = 20 AND extract(year from data_fattura) = 2024
+group by extract(year from data_fattura);
+(In questo esercizio raggruppo per anno e poi calcolo quante fatture ci sono state in quell'anno, quindi ci sarà 1 riga con anno->2024 numero_fatture->2)
+
+//Esercizio 8
+SELECT extract(year from data_fattura) as anno, count(*) as numero_fatture, sum(importo) as somma_fatture
+FROM fatture
+GROUP BY extract(year from data_fattura);
